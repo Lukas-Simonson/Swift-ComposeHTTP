@@ -111,7 +111,7 @@ public extension Network.Request {
         return Network.Response(data: data, response: urlResponse)
     }
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 12.0, *)
     func responseStream() async throws -> Network.ByteStream {
         let (bytes, urlResponse) = try await self.session.bytes(for: self.request)
         return Network.ByteStream(bytes: bytes, response: Network.Response(data: nil, response: urlResponse))

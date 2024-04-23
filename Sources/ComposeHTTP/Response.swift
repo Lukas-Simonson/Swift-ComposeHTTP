@@ -18,7 +18,7 @@ public extension Network {
         }
     }
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 12.0, *)
     class ByteStream: AsyncSequence {
         public typealias AsyncIterator = URLSession.AsyncBytes.AsyncIterator
         public typealias Element = UInt8
