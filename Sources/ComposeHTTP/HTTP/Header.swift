@@ -9,42 +9,112 @@ import Foundation
 
 public extension Network.HTTP {
     enum Header {
-        case accept(value: String)
-        case acceptCharset(value: String)
-        case acceptEncoding(value: String)
-        case acceptLanguage(value: String)
-        case acceptDatetime(value: String)
-        case accessControlRequestMethod(value: String)
-        case accessControlRequestHeaders(value: String)
-        case authorization(value: String)
-        case cacheControl(value: String)
-        case connection(value: String)
-        case contentLength(value: String)
-        case contentType(value: String)
-        case cookie(value: String)
-        case date(value: String)
-        case expect(value: String)
-        case forwarded(value: String)
-        case from(value: String)
-        case host(value: String)
-        case ifMatch(value: String)
-        case ifModifiedSince(value: String)
-        case ifNoneMatch(value: String)
-        case ifRange(value: String)
-        case ifUnmodifiedSince(value: String)
-        case maxForwards(value: String)
-        case origin(value: String)
-        case pragma(value: String)
-        case proxyAuthorization(value: String)
-        case range(value: String)
-        case referer(value: String)
-        case te(value: String)
-        case userAgent(value: String)
-        case upgrade(value: String)
-        case via(value: String)
-        case warning(value: String)
-        case custom(header: String, value: String)
+        /// The `Accept` header.
+        case accept(value: CustomStringConvertible)
         
+        /// The `Accept-Charset` header.
+        case acceptCharset(value: CustomStringConvertible)
+        
+        /// The `Accept-Encoding` header.
+        case acceptEncoding(value: CustomStringConvertible)
+        
+        /// The `Accept-Language` header.
+        case acceptLanguage(value: CustomStringConvertible)
+        
+        /// The `Accept-Datetime` header.
+        case acceptDatetime(value: CustomStringConvertible)
+        
+        /// The `Access-Control-Request-Method` header.
+        case accessControlRequestMethod(value: CustomStringConvertible)
+        
+        /// The `Access-Control-Request-Headers` header.
+        case accessControlRequestHeaders(value: CustomStringConvertible)
+        
+        /// The `Authorization` header.
+        case authorization(value: CustomStringConvertible)
+        
+        /// The `Cache-Control` header.
+        case cacheControl(value: CustomStringConvertible)
+        
+        /// The `Connection` header.
+        case connection(value: CustomStringConvertible)
+        
+        /// The `Content-Length` header.
+        case contentLength(value: CustomStringConvertible)
+        
+        /// The `Content-Type` header.
+        case contentType(value: CustomStringConvertible)
+        
+        /// The `Cookie` header.
+        case cookie(value: CustomStringConvertible)
+        
+        /// The `Date` header.
+        case date(value: CustomStringConvertible)
+        
+        /// The `Expect` header.
+        case expect(value: CustomStringConvertible)
+        
+        /// The `Forwarded` header.
+        case forwarded(value: CustomStringConvertible)
+        
+        /// The `From` header.
+        case from(value: CustomStringConvertible)
+        
+        /// The `Host` header.
+        case host(value: CustomStringConvertible)
+        
+        /// The `If-Match` header.
+        case ifMatch(value: CustomStringConvertible)
+        
+        /// The `If-Modified-Since` header.
+        case ifModifiedSince(value: CustomStringConvertible)
+        
+        /// The `If-None-Match` header.
+        case ifNoneMatch(value: CustomStringConvertible)
+        
+        /// The `If-Range` header.
+        case ifRange(value: CustomStringConvertible)
+        
+        /// The `If-Unmodified-Since` header.
+        case ifUnmodifiedSince(value: CustomStringConvertible)
+        
+        /// The `Max-Forwards` header.
+        case maxForwards(value: CustomStringConvertible)
+        
+        /// The `Origin` header.
+        case origin(value: CustomStringConvertible)
+        
+        /// The `Pragma` header.
+        case pragma(value: CustomStringConvertible)
+        
+        /// The `Proxy-Authorization` header.
+        case proxyAuthorization(value: CustomStringConvertible)
+        
+        /// The `Range` header.
+        case range(value: CustomStringConvertible)
+        
+        /// The `Referer` header.
+        case referer(value: CustomStringConvertible)
+        
+        /// The `TE` header.
+        case te(value: CustomStringConvertible)
+        
+        /// The `User-Agent` header.
+        case userAgent(value: CustomStringConvertible)
+        
+        /// The `Upgrade` header.
+        case upgrade(value: CustomStringConvertible)
+        
+        /// The `Via` header.
+        case via(value: CustomStringConvertible)
+        
+        /// The `Warning` header.
+        case warning(value: CustomStringConvertible)
+        
+        /// A custom HTTP header.
+        case custom(header: String, value: CustomStringConvertible)
+        
+        /// The field name of the header.
         public var field: String {
             switch self {
                 case .accept: return "Accept"
@@ -85,43 +155,44 @@ public extension Network.HTTP {
             }
         }
         
+        /// The value of the header.
         public var value: String {
             switch self {
-                case .accept(let value): return value
-                case .acceptCharset(let value): return value
-                case .acceptEncoding(let value): return value
-                case .acceptLanguage(let value): return value
-                case .acceptDatetime(let value): return value
-                case .accessControlRequestMethod(let value): return value
-                case .accessControlRequestHeaders(let value): return value
-                case .authorization(let value): return value
-                case .cacheControl(let value): return value
-                case .connection(let value): return value
-                case .contentLength(let value): return value
-                case .contentType(let value): return value
-                case .cookie(let value): return value
-                case .date(let value): return value
-                case .expect(let value): return value
-                case .forwarded(let value): return value
-                case .from(let value): return value
-                case .host(let value): return value
-                case .ifMatch(let value): return value
-                case .ifModifiedSince(let value): return value
-                case .ifNoneMatch(let value): return value
-                case .ifRange(let value): return value
-                case .ifUnmodifiedSince(let value): return value
-                case .maxForwards(let value): return value
-                case .origin(let value): return value
-                case .pragma(let value): return value
-                case .proxyAuthorization(let value): return value
-                case .range(let value): return value
-                case .referer(let value): return value
-                case .te(let value): return value
-                case .userAgent(let value): return value
-                case .upgrade(let value): return value
-                case .via(let value): return value
-                case .warning(let value): return value
-                case .custom(_, let value): return value
+                case .accept(let value): return value.description
+                case .acceptCharset(let value): return value.description
+                case .acceptEncoding(let value): return value.description
+                case .acceptLanguage(let value): return value.description
+                case .acceptDatetime(let value): return value.description
+                case .accessControlRequestMethod(let value): return value.description
+                case .accessControlRequestHeaders(let value): return value.description
+                case .authorization(let value): return value.description
+                case .cacheControl(let value): return value.description
+                case .connection(let value): return value.description
+                case .contentLength(let value): return value.description
+                case .contentType(let value): return value.description
+                case .cookie(let value): return value.description
+                case .date(let value): return value.description
+                case .expect(let value): return value.description
+                case .forwarded(let value): return value.description
+                case .from(let value): return value.description
+                case .host(let value): return value.description
+                case .ifMatch(let value): return value.description
+                case .ifModifiedSince(let value): return value.description
+                case .ifNoneMatch(let value): return value.description
+                case .ifRange(let value): return value.description
+                case .ifUnmodifiedSince(let value): return value.description
+                case .maxForwards(let value): return value.description
+                case .origin(let value): return value.description
+                case .pragma(let value): return value.description
+                case .proxyAuthorization(let value): return value.description
+                case .range(let value): return value.description
+                case .referer(let value): return value.description
+                case .te(let value): return value.description
+                case .userAgent(let value): return value.description
+                case .upgrade(let value): return value.description
+                case .via(let value): return value.description
+                case .warning(let value): return value.description
+                case .custom(_, let value): return value.description
             }
         }
     }
