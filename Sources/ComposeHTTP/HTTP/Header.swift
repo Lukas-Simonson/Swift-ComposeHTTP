@@ -10,10 +10,10 @@ import Foundation
 public extension Network.HTTP {
     struct Header {
         /// The field name of the header.
-        let field: String
+        public let field: String
         
         /// The value of the header.
-        let value: String?
+        public let value: String?
         
         internal init(field: String, value: String?) {
             self.field = field
@@ -22,7 +22,7 @@ public extension Network.HTTP {
     }
 }
 
-extension Network.HTTP.Header {
+public extension Network.HTTP.Header {
     
     /// A custom HTTP header.
     static func custom(_ field: String, value: CustomStringConvertible?) -> Self {
