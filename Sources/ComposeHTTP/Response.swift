@@ -19,6 +19,21 @@ public extension Network {
         /// The URL response returned by the network request.
         private var response: URLResponse
         
+        /// Cached response status code.
+        private var _statusCode: Int? = nil
+        
+        /// The status code of this response.
+        public var statusCode: Int {
+            get throws {
+                if let _statusCode { return _statusCode }
+                else if let response = self.response as? HTTPURLResponse {
+                    _statusCode = response.statusCode
+                    return response.statusCode
+                }
+                else { throw Network.ResponseError.invalidHTTPResponse }
+            }
+        }
+        
         /// Initializes a new `Response` instance with the specified data and URL response.
         ///
         /// - Parameters:
@@ -111,7 +126,7 @@ public extension Network.Response {
     ///   - encoding: The string encoding to use. Defaults to `.utf8`.
     /// - Returns: The response body data as a string.
     /// - Throws: `Network.ResponseError.dataNotFound` if the response body data is not available, or `Network.ResponseError.couldntConvertDataToString` if the data cannot be converted into a string using the specified encoding.
-    func body(_ encoding: String.Encoding = .utf8) throws -> String {
+    func body(encoding: String.Encoding = .utf8) throws -> String {
         guard let data else { throw Network.ResponseError.dataNotFound }
         guard let string = String(data: data, encoding: encoding)
         else { throw Network.ResponseError.couldntConvertDataToString }
@@ -128,6 +143,64 @@ public extension Network.Response {
     func printJSON(or defaultString: String = "Failed To Print JSON") -> Self {
         guard let data else { print(defaultString); return self }
         print(String(data: data, encoding: .utf8) ?? defaultString)
+        return self
+    }
+}
+
+// MARK: Response Validation
+public extension Network.Response {
+    
+    /// Verifies that the HTTP status code is the specified value.
+    ///
+    /// This method checks if the HTTP status code is equal to the specified value. If not, it throws the specified error.
+    ///
+    /// - Parameters:
+    ///   - code: The HTTP status code to verify against.
+    ///   - error: The error to throw if the status code does not match.
+    /// - Throws: The specified error if the status code does not match.
+    func verifyStatusCode<E: Error>(is code: Int, orThrow error: E) throws -> Self {
+        if try statusCode != code { throw error }
+        return self
+    }
+    
+    /// Verifies that the HTTP status code is in the specified range.
+    ///
+    /// This method checks if the HTTP status code is within the specified range. If not, it throws the specified error.
+    ///
+    /// - Parameters:
+    ///   - range: The range of HTTP status codes to verify against.
+    ///   - error: The error to throw if the status code does not match.
+    /// - Throws: The specified error if the status code does not match.
+    func verifyStatusCode<E: Error>(isIn range: ClosedRange<Int>, orThrow error: E) throws -> Self {
+        let statusCode = try statusCode
+        if range.lowerBound > statusCode || range.upperBound < statusCode { throw error }
+        return self
+    }
+    
+    /// Verifies that the HTTP status code is not the specified value.
+    ///
+    /// This method checks if the HTTP status code is not equal to the specified value. If it is, it throws the specified error.
+    ///
+    /// - Parameters:
+    ///   - code: The HTTP status code to verify against.
+    ///   - error: The error to throw if the status code matches.
+    /// - Throws: The specified error if the status code matches.
+    func verifyStatusCode<E: Error>(isNot code: Int, orThrow error: E) throws -> Self {
+        if try statusCode == code { throw error }
+        return self
+    }
+    
+    /// Verifies that the HTTP status code is not in the specified range.
+    ///
+    /// This method checks if the HTTP status code is not within the specified range. If it is, it throws the specified error.
+    ///
+    /// - Parameters:
+    ///   - range: The range of HTTP status codes to verify against.
+    ///   - error: The error to throw if the status code does match.
+    /// - Throws: The specified error if the status code does match.
+    func verifyStatusCode<E: Error>(isNotIn range: ClosedRange<Int>, orThrow error: E) throws -> Self {
+        let statusCode = try statusCode
+        if range.lowerBound < statusCode && range.upperBound > statusCode { throw error }
         return self
     }
 }

@@ -8,192 +8,194 @@
 import Foundation
 
 public extension Network.HTTP {
-    enum Header {
-        /// The `Accept` header.
-        case accept(value: CustomStringConvertible)
-        
-        /// The `Accept-Charset` header.
-        case acceptCharset(value: CustomStringConvertible)
-        
-        /// The `Accept-Encoding` header.
-        case acceptEncoding(value: CustomStringConvertible)
-        
-        /// The `Accept-Language` header.
-        case acceptLanguage(value: CustomStringConvertible)
-        
-        /// The `Accept-Datetime` header.
-        case acceptDatetime(value: CustomStringConvertible)
-        
-        /// The `Access-Control-Request-Method` header.
-        case accessControlRequestMethod(value: CustomStringConvertible)
-        
-        /// The `Access-Control-Request-Headers` header.
-        case accessControlRequestHeaders(value: CustomStringConvertible)
-        
-        /// The `Authorization` header.
-        case authorization(value: CustomStringConvertible)
-        
-        /// The `Cache-Control` header.
-        case cacheControl(value: CustomStringConvertible)
-        
-        /// The `Connection` header.
-        case connection(value: CustomStringConvertible)
-        
-        /// The `Content-Length` header.
-        case contentLength(value: CustomStringConvertible)
-        
-        /// The `Content-Type` header.
-        case contentType(value: CustomStringConvertible)
-        
-        /// The `Cookie` header.
-        case cookie(value: CustomStringConvertible)
-        
-        /// The `Date` header.
-        case date(value: CustomStringConvertible)
-        
-        /// The `Expect` header.
-        case expect(value: CustomStringConvertible)
-        
-        /// The `Forwarded` header.
-        case forwarded(value: CustomStringConvertible)
-        
-        /// The `From` header.
-        case from(value: CustomStringConvertible)
-        
-        /// The `Host` header.
-        case host(value: CustomStringConvertible)
-        
-        /// The `If-Match` header.
-        case ifMatch(value: CustomStringConvertible)
-        
-        /// The `If-Modified-Since` header.
-        case ifModifiedSince(value: CustomStringConvertible)
-        
-        /// The `If-None-Match` header.
-        case ifNoneMatch(value: CustomStringConvertible)
-        
-        /// The `If-Range` header.
-        case ifRange(value: CustomStringConvertible)
-        
-        /// The `If-Unmodified-Since` header.
-        case ifUnmodifiedSince(value: CustomStringConvertible)
-        
-        /// The `Max-Forwards` header.
-        case maxForwards(value: CustomStringConvertible)
-        
-        /// The `Origin` header.
-        case origin(value: CustomStringConvertible)
-        
-        /// The `Pragma` header.
-        case pragma(value: CustomStringConvertible)
-        
-        /// The `Proxy-Authorization` header.
-        case proxyAuthorization(value: CustomStringConvertible)
-        
-        /// The `Range` header.
-        case range(value: CustomStringConvertible)
-        
-        /// The `Referer` header.
-        case referer(value: CustomStringConvertible)
-        
-        /// The `TE` header.
-        case te(value: CustomStringConvertible)
-        
-        /// The `User-Agent` header.
-        case userAgent(value: CustomStringConvertible)
-        
-        /// The `Upgrade` header.
-        case upgrade(value: CustomStringConvertible)
-        
-        /// The `Via` header.
-        case via(value: CustomStringConvertible)
-        
-        /// The `Warning` header.
-        case warning(value: CustomStringConvertible)
-        
-        /// A custom HTTP header.
-        case custom(header: String, value: CustomStringConvertible)
-        
+    struct Header {
         /// The field name of the header.
-        public var field: String {
-            switch self {
-                case .accept: return "Accept"
-                case .acceptCharset: return "Accept-Charset"
-                case .acceptEncoding: return "Accept-Encoding"
-                case .acceptLanguage: return "Accept-Language"
-                case .acceptDatetime: return "Accept-Datetime"
-                case .accessControlRequestMethod: return "Access-Control-Request-Method"
-                case .accessControlRequestHeaders: return "Access-Control-Request-Headers"
-                case .authorization: return "Authorization"
-                case .cacheControl: return "Cache-Control"
-                case .connection: return "Connection"
-                case .contentLength: return "Content-Length"
-                case .contentType: return "Content-Type"
-                case .cookie: return "Cookie"
-                case .date: return "Date"
-                case .expect: return "Expect"
-                case .forwarded: return "Forwarded"
-                case .from: return "From"
-                case .host: return "Host"
-                case .ifMatch: return "If-Match"
-                case .ifModifiedSince: return "If-Modified-Since"
-                case .ifNoneMatch: return "If-None-Match"
-                case .ifRange: return "If-Range"
-                case .ifUnmodifiedSince: return "If-Unmodified-Since"
-                case .maxForwards: return "Max-Forwards"
-                case .origin: return "Origin"
-                case .pragma: return "Pragma"
-                case .proxyAuthorization: return "Proxy-Authorization"
-                case .range: return "Range"
-                case .referer: return "Referer"
-                case .te: return "TE"
-                case .userAgent: return "User-Agent"
-                case .upgrade: return "Upgrade"
-                case .via: return "Via"
-                case .warning: return "Warning"
-                case .custom(let header, _): return header
-            }
-        }
+        let field: String
         
         /// The value of the header.
-        public var value: String {
-            switch self {
-                case .accept(let value): return value.description
-                case .acceptCharset(let value): return value.description
-                case .acceptEncoding(let value): return value.description
-                case .acceptLanguage(let value): return value.description
-                case .acceptDatetime(let value): return value.description
-                case .accessControlRequestMethod(let value): return value.description
-                case .accessControlRequestHeaders(let value): return value.description
-                case .authorization(let value): return value.description
-                case .cacheControl(let value): return value.description
-                case .connection(let value): return value.description
-                case .contentLength(let value): return value.description
-                case .contentType(let value): return value.description
-                case .cookie(let value): return value.description
-                case .date(let value): return value.description
-                case .expect(let value): return value.description
-                case .forwarded(let value): return value.description
-                case .from(let value): return value.description
-                case .host(let value): return value.description
-                case .ifMatch(let value): return value.description
-                case .ifModifiedSince(let value): return value.description
-                case .ifNoneMatch(let value): return value.description
-                case .ifRange(let value): return value.description
-                case .ifUnmodifiedSince(let value): return value.description
-                case .maxForwards(let value): return value.description
-                case .origin(let value): return value.description
-                case .pragma(let value): return value.description
-                case .proxyAuthorization(let value): return value.description
-                case .range(let value): return value.description
-                case .referer(let value): return value.description
-                case .te(let value): return value.description
-                case .userAgent(let value): return value.description
-                case .upgrade(let value): return value.description
-                case .via(let value): return value.description
-                case .warning(let value): return value.description
-                case .custom(_, let value): return value.description
-            }
+        let value: String?
+        
+        internal init(field: String, value: String?) {
+            self.field = field
+            self.value = value
         }
+    }
+}
+
+extension Network.HTTP.Header {
+    
+    /// A custom HTTP header.
+    static func custom(_ field: String, value: CustomStringConvertible?) -> Self {
+        return self.init(field: field, value: value?.description)
+    }
+    
+    /// The `Accept` header.
+    static func accept<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Accept", value: value.description)
+    }
+    
+    /// The `Accept-Charset` header.
+    static func acceptCharset<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Accept-Charset", value: value.description)
+    }
+    
+    /// The `Accept-Encoding` header.
+    static func acceptEncoding<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Accept-Encoding", value: value.description)
+    }
+    
+    /// The `Accept-Language` header.
+    static func acceptLanguage<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Accept-Language", value: value.description)
+    }
+    
+    /// The `Accept-Datetime` header.
+    static func acceptDatetime<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Accept-Datetime", value: value.description)
+    }
+    
+    /// The `Access-Control-Request-Method` header.
+    static func accessControlRequestMethod<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Access-Control-Request-Method", value: value.description)
+    }
+    
+    /// The `Access-Control-Request-Headers` header.
+    static func accessControlRequestHeaders<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Access-Control-Request-Headers", value: value.description)
+    }
+    
+    /// The `Authorization` header.
+    static func authorization<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Authorization", value: value.description)
+    }
+    
+    /// The `Cache-Control` header.
+    static func cacheControl<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Cache-Control", value: value.description)
+    }
+    
+    /// The `Connection` header.
+    static func connection<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Connection", value: value.description)
+    }
+    
+    /// The `Content-Length` header.
+    static func contentLength<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Content-Length", value: value.description)
+    }
+    
+    /// The `Content-Type` header.
+    static func contentType<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Content-Type", value: value.description)
+    }
+    
+    /// The `Cookie` header.
+    static func cookie<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Cookie", value: value.description)
+    }
+    
+    /// The `Date` header.
+    static func date<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Date", value: value.description)
+    }
+    
+    /// The `Expect` header.
+    static func expect<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Expect", value: value.description)
+    }
+    
+    /// The `Forwarded` header.
+    static func forwarded<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Forwarded", value: value.description)
+    }
+    
+    /// The `From` header.
+    static func from<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "From", value: value.description)
+    }
+    
+    /// The `Host` header.
+    static func host<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Host", value: value.description)
+    }
+    
+    /// The `If-Match` header.
+    static func ifMatch<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "If-Match", value: value.description)
+    }
+    
+    /// The `If-Modified-Since` header.
+    static func ifModifiedSince<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "If-Modified-Since", value: value.description)
+    }
+    
+    /// The `If-None-Match` header.
+    static func ifNoneMatch<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "If-None-Match", value: value.description)
+    }
+    
+    /// The `If-Range` header.
+    static func ifRange<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "If-Range", value: value.description)
+    }
+    
+    /// The `If-Unmodified-Since` header.
+    static func ifUnmodifiedSince<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "If-Unmodified-Since", value: value.description)
+    }
+    
+    /// The `Max-Forwards` header.
+    static func maxForwards<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Max-Forwards", value: value.description)
+    }
+    
+    /// The `Origin` header.
+    static func origin<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Origin", value: value.description)
+    }
+    
+    /// The `Pragma` header.
+    static func pragma<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Pragma", value: value.description)
+    }
+    
+    /// The `Proxy-Authorization` header.
+    static func proxyAuthorization<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Proxy-Authorization", value: value.description)
+    }
+    
+    /// The `Range` header.
+    static func range<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Range", value: value.description)
+    }
+    
+    /// The `Referer` header.
+    static func referer<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Referer", value: value.description)
+    }
+    
+    /// The `TE` header.
+    static func te<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "TE", value: value.description)
+    }
+    
+    /// The `User-Agent` header.
+    static func userAgent<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "User-Agent", value: value.description)
+    }
+    
+    /// The `Upgrade` header.
+    static func upgrade<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Upgrade", value: value.description)
+    }
+    
+    /// The `Via` header.
+    static func via<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Via", value: value.description)
+    }
+    
+    /// The `Warning` header.
+    static func warning<V: CustomStringConvertible>(value: V) -> Self {
+        return self.init(field: "Warning", value: value.description)
     }
 }

@@ -25,6 +25,7 @@ public enum Network {
     
     /// Errors that can happen during the creation of the `Network.Response` type.
     public enum ResponseError: Error {
+        case invalidHTTPResponse
         case couldntConvertDataToString
         case dataNotFound
     }

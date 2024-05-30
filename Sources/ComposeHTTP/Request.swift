@@ -279,7 +279,7 @@ public extension Network.Request {
     ///   - decoder: The JSON decoder to use for decoding the response body. Defaults to `JSONDecoder()`.
     /// - Returns: The decoded response body of the specified type.
     /// - Throws: An error if the request fails or the response body cannot be decoded.
-    func responseBody<Body: Decodable>(for type: Body.Type, using decoder: JSONDecoder = JSONDecoder()) async throws -> Body {
+    func responseBody<Body: Decodable>(as type: Body.Type, using decoder: JSONDecoder = JSONDecoder()) async throws -> Body {
         return try await self.response().body(decoder)
     }
 }
