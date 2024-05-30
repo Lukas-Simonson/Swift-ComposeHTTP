@@ -22,7 +22,7 @@ public extension Network {
         /// - Parameter comp: The URL components.
         internal required init(comp: URLComponents) {
             self.components = comp
-            components.scheme = Network.HTTP.Scheme.https.rawValue
+            if components.scheme == nil { components.scheme = Network.HTTP.Scheme.https.rawValue }
         }
     }
 }
