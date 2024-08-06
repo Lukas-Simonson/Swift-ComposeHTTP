@@ -158,8 +158,25 @@ public extension Network.Response {
     ///   - code: The HTTP status code to verify against.
     ///   - error: The error to throw if the status code does not match.
     /// - Throws: The specified error if the status code does not match.
+    @discardableResult
     func verifyStatusCode<E: Error>(is code: Int, orThrow error: E) throws -> Self {
         if try statusCode != code { throw error }
+        return self
+    }
+    
+    /// Verifies that the HTTP status code is the specified value.
+    ///
+    /// This method checks if the HTTP status code is equal to the specified value. If not, it decodes and throws the specified error type.
+    ///
+    /// - Parameters:
+    ///   - code: The HTTP status code to verify against.
+    ///   - type: The type of the error to throw if the status code does not match.
+    /// - Throws: The specified error type if the status code does not match.
+    @discardableResult
+    func verifyStatusCode<E: Error & Decodable>(is code: Int, orDecodeAndThrow type: E.Type, using decoder: JSONDecoder = JSONDecoder()) throws -> Self {
+        if try statusCode != code {
+            throw try self.body(as: E.self, decoder)
+        }
         return self
     }
     
@@ -171,9 +188,27 @@ public extension Network.Response {
     ///   - range: The range of HTTP status codes to verify against.
     ///   - error: The error to throw if the status code does not match.
     /// - Throws: The specified error if the status code does not match.
+    @discardableResult
     func verifyStatusCode<E: Error>(isIn range: ClosedRange<Int>, orThrow error: E) throws -> Self {
         let statusCode = try statusCode
         if range.lowerBound > statusCode || range.upperBound < statusCode { throw error }
+        return self
+    }
+    
+    /// Verifies that the HTTP status code is the specified value.
+    ///
+    /// This method checks if the HTTP status code is equal to the specified value. If not, it decodes and throws the specified error type.
+    ///
+    /// - Parameters:
+    ///   - range: The range of HTTP status codes to verify against.
+    ///   - type: The type of the error to throw if the status code does not match.
+    /// - Throws: The specified error type if the status code does not match.
+    @discardableResult
+    func verifyStatusCode<E: Error & Decodable>(isIn range: ClosedRange<Int>, orDecodeAndThrow type: E.Type, using decoder: JSONDecoder = JSONDecoder()) throws -> Self {
+        let statusCode = try statusCode
+        if range.lowerBound > statusCode || range.upperBound < statusCode {
+            throw try self.body(as: E.self, decoder)
+        }
         return self
     }
     
@@ -185,10 +220,28 @@ public extension Network.Response {
     ///   - code: The HTTP status code to verify against.
     ///   - error: The error to throw if the status code matches.
     /// - Throws: The specified error if the status code matches.
+    @discardableResult
     func verifyStatusCode<E: Error>(isNot code: Int, orThrow error: E) throws -> Self {
         if try statusCode == code { throw error }
         return self
     }
+    
+    /// Verifies that the HTTP status code is not the specified value.
+    ///
+    /// This method checks if the HTTP status code is not equal to the specified value. If it is, it decodes and throws the specified error type.
+    ///
+    /// - Parameters:
+    ///   - code: The HTTP status code to verify against.
+    ///   - type: The type of the error to throw if the status code matches.
+    /// - Throws: The specified error type if the status code matches.
+    @discardableResult
+    func verifyStatusCode<E: Error & Decodable>(isNot code: Int, orDecodeAndThrow type: E.Type, using decoder: JSONDecoder = JSONDecoder()) throws -> Self {
+        if try statusCode == code {
+            throw try self.body(as: E.self, decoder)
+        }
+        return self
+    }
+    
     
     /// Verifies that the HTTP status code is not in the specified range.
     ///
@@ -198,9 +251,27 @@ public extension Network.Response {
     ///   - range: The range of HTTP status codes to verify against.
     ///   - error: The error to throw if the status code does match.
     /// - Throws: The specified error if the status code does match.
+    @discardableResult
     func verifyStatusCode<E: Error>(isNotIn range: ClosedRange<Int>, orThrow error: E) throws -> Self {
         let statusCode = try statusCode
         if range.lowerBound < statusCode && range.upperBound > statusCode { throw error }
+        return self
+    }
+    
+    /// Verifies that the HTTP status code is not in the specified value.
+    ///
+    /// This method checks if the HTTP status code is not in the specified range. If it is, it decodes and throws the specified error type.
+    ///
+    /// - Parameters:
+    ///   - range: The range of HTTP status codes to verify against.
+    ///   - type: The type of the error to throw if the status code does not match.
+    /// - Throws: The specified error type if the status code does not match.
+    @discardableResult
+    func verifyStatusCode<E: Error & Decodable>(isNotIn range: ClosedRange<Int>, orDecodeAndThrow type: E.Type, using decoder: JSONDecoder = JSONDecoder()) throws -> Self {
+        let statusCode = try statusCode
+        if range.lowerBound < statusCode && range.upperBound > statusCode {
+            throw try self.body(as: E.self, decoder)
+        }
         return self
     }
 }
