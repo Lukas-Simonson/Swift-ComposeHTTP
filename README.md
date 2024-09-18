@@ -1,6 +1,9 @@
 # ComposeHTTP
 ComposeHTTP is a thin and light wrapper around Foundation.URLSession and its functionality. ComposeHTTP is meant to provide a cleaner way to make URLRequests and work with the information recieved back from them.
 
+> [!WARNING]
+> ComposeHTTP is officially deprecated, and has been replaced with [Cobweb](https://github.com/Lukas-Simonson/Swift-Cobweb/tree/d36002d681e06de178bd97fcf678893b21abc063). Cobweb is a near drop-in replacement for ComposeHTTP with some lovely new features, and more to come!
+
 ## Quickstart Guide
 
 ### Making URLs
